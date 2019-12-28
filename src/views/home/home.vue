@@ -16,6 +16,9 @@
     <h3>{{$store.getters.dayu20tu(30)}}</h3>
 
     <h3>{{$store.state.a.name}}</h3>
+    <el-button type="warning" @click="startHacking">Start</el-button>
+    <el-button :plain="true" @click="open">打开消息提示</el-button>
+    <el-button :plain="true" @click="openVn">VNode</el-button>
   </div>
 </template>
 
@@ -44,6 +47,18 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    open() {
+      this.$message("这是一条消息提示");
+    },
+    openVn() {
+        const h = this.$createElement;
+        this.$message({
+          message: h('p', null, [
+            h('span', null, '内容可以是 '),
+            h('i', { style: 'color: teal' }, 'VNode')
+          ])
+        });
+      },
     add: function() {
       this.$store.commit("add");
     },
@@ -53,17 +68,15 @@ export default {
     addcout: function(count) {
       this.$store.commit("addcout", count);
     },
-    tianjiaxuesheng:function(){
-      const stu = {id:2,name:'liming666',age:35}
+    tianjiaxuesheng: function() {
+      const stu = { id: 2, name: "liming666", age: 35 };
       this.$store.commit("tianjiaxuesheng", stu);
     },
-    gaibian:function(){
-      this.$store
-      .dispatch('agaibian','我携带的信息')
-      .then(res=>{
-        console.log('里面已经调用完成')
+    gaibian: function() {
+      this.$store.dispatch("agaibian", "我携带的信息").then(res => {
+        console.log("里面已经调用完成");
         console.log(res);
-      })
+      });
     }
     // updateInfo:function(){
     //   this.$store.dispatch('xiugai','我是patload ')
